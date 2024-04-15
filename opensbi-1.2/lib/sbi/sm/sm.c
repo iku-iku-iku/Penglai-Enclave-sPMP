@@ -388,3 +388,20 @@ uintptr_t sm_free_enclave_mem(uintptr_t size_ptr, unsigned long flag)
 	copy_to_host((void *)size_ptr, (void *)(&size), sizeof(unsigned long));
 	return ret;
 }
+
+/**
+ * \brief sign with sm private key
+ * 
+ * \param regs The enclave regs
+ * \param pri_key_va The private key pointer in enclave address space
+ * \param pub_key_va The public key pointer in enclave address space
+ * \param signature_va The signature pointer in enclave address space
+ */
+uintptr_t sm_enclave_generate_key_pair_and_signature(uintptr_t *regs, uintptr_t pri_key_va, uintptr_t pub_key_va, uintptr_t signature_va)
+{
+	uintptr_t ret = 0;
+
+	ret = enclave_generate_key_pair_and_signature(regs, pri_key_va, pub_key_va, signature_va);
+
+	return ret;
+}

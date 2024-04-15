@@ -31,6 +31,7 @@ extern uintptr_t _fw_start[], _fw_end[];
 #define SBI_MEMORY_RECLAIM      91
 #define SBI_FREE_ENCLAVE_MEM    90
 #define SBI_DEBUG_PRINT         88
+#define SBI_GENERATE_KEY_PAIR_AND_SIGNATURE 87
 
 //Enclave SBI numbers
 #define SBI_EXIT_ENCLAVE        99
@@ -95,6 +96,8 @@ uintptr_t sm_enclave_get_key(uintptr_t* regs, uintptr_t salt_va, uintptr_t salt_
 uintptr_t sm_exit_enclave(uintptr_t *regs, unsigned long retval);
 
 uintptr_t sm_do_timer_irq(uintptr_t *regs, uintptr_t mcause, uintptr_t mepc);
+
+uintptr_t sm_enclave_generate_key_pair_and_signature(uintptr_t *regs, uintptr_t pri_key_va, uintptr_t pub_key_va, uintptr_t signature_va);
 
 int check_in_enclave_world();
 
