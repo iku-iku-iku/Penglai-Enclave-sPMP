@@ -178,6 +178,7 @@ int penglai_enclave_eapp_preprare(enclave_mem_t* enclave_mem,  void* __user elf_
 {
 	vaddr_t addr;
 
+    printk("eapp prepare: elf_ptr=%lx, size=%lu, elf_entry_point=%lx, stack_ptr=%lx, stack_size=%d", (vaddr_t)elf_ptr, size, *elf_entry_point, stack_ptr, stack_size);
 	/* Init stack */
 	for(addr = stack_ptr - stack_size; addr < stack_ptr; addr += RISCV_PGSIZE)
 	{

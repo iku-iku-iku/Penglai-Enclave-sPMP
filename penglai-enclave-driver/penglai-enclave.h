@@ -19,6 +19,7 @@
 #define PENGLAI_ENCLAVE_IOC_MAGIC  0xa4
 
 //SBI CALL NUMBERS
+#define SBI_SM_SIGN                     101
 #define SBI_SM_INIT                     100
 #define SBI_SM_CREATE_ENCLAVE            99
 #define SBI_SM_ATTEST_ENCLAVE            98

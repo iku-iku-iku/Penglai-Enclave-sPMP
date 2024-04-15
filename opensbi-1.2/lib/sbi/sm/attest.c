@@ -79,20 +79,21 @@ void hash_enclave(struct enclave_t *enclave, void* hash, uintptr_t nonce_arg)
     SM3_process(&hash_ctx, (unsigned char*)(&(enclave->entry_point)),
         sizeof(unsigned long));
     // configuration parameters
-    SM3_process(&hash_ctx, (unsigned char*)(&(enclave->untrusted_ptr)),
-        sizeof(unsigned long));
-    SM3_process(&hash_ctx, (unsigned char*)(&(enclave->untrusted_size)),
-        sizeof(unsigned long));
-    SM3_process(&hash_ctx, (unsigned char*)(&(enclave->kbuffer)),
-        sizeof(unsigned long));
-    SM3_process(&hash_ctx, (unsigned char*)(&(enclave->kbuffer_size)),
-        sizeof(unsigned long));
+    // SM3_process(&hash_ctx, (unsigned char*)(&(enclave->untrusted_ptr)),
+    //     sizeof(unsigned long));
+    // SM3_process(&hash_ctx, (unsigned char*)(&(enclave->untrusted_size)),
+    //     sizeof(unsigned long));
+    // SM3_process(&hash_ctx, (unsigned char*)(&(enclave->kbuffer)),
+    //     sizeof(unsigned long));
+    // SM3_process(&hash_ctx, (unsigned char*)(&(enclave->kbuffer_size)),
+    //     sizeof(unsigned long));
     hash_enclave_mem(
         &hash_ctx,
         (pte_t*)(enclave->thread_context.encl_ptbr << RISCV_PGSHIFT),
         (VA_BITS - RISCV_PGSHIFT) / RISCV_PGLEVEL_BITS, 0, 1
     );
     SM3_process(&hash_ctx, (unsigned char*)(&nonce), sizeof(uintptr_t));
+
     SM3_done(&hash_ctx, hash);
 }
 
@@ -123,6 +124,26 @@ void attest_init()
     i = SM2_KeyGeneration(sm_prikey->dA, sm_pubkey->xA, sm_pubkey->yA);
     if(i)
         printm("SM2_KeyGeneration failed with ret value: %d\n", i);
+}
+
+void generate_key_pair_and_sigature(void *pri_key_arg, void *pub_key_arg, void *signature_arg)
+{
+    int i;
+    struct prikey_t *pri_key = (struct prikey_t *)pri_key_arg;
+    struct pubkey_t *pub_key = (struct pubkey_t *)pub_key_arg;
+    struct signature_t *signature = (struct signature_t*)signature_arg;
+    struct prikey_t *sm_prikey = (struct prikey_t *)SM_PRI_KEY;
+    
+    i = SM2_Init();
+    if(i)
+        printm("SM2_Init failed with ret value: %d\n", i);
+
+    i = SM2_KeyGeneration(pri_key->dA, pub_key->xA, pub_key->yA);
+    if(i)
+        printm("SM2_KeyGeneration failed with ret value: %d\n", i);
+    
+    SM2_Sign((void *)pub_key, SIGNATURE_SIZE, sm_prikey->dA, (unsigned char *)(signature->r),
+        (unsigned char *)(signature->s));
 }
 
 void sign_enclave(void* signature_arg, unsigned char *message, int len)

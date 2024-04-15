@@ -91,6 +91,7 @@ struct cpu_state_t
   int eid;
 };
 
+
 uintptr_t create_enclave(struct enclave_sbi_param_t create_args);
 uintptr_t run_enclave(uintptr_t* regs, unsigned int eid);
 uintptr_t stop_enclave(uintptr_t* regs, unsigned int eid);
@@ -106,6 +107,7 @@ uintptr_t enclave_sys_write(uintptr_t *regs);
 uintptr_t enclave_user_defined_ocall(uintptr_t *regs, uintptr_t ocall_buf_size);
 uintptr_t enclave_derive_seal_key(uintptr_t* regs, uintptr_t salt_va,
                         uintptr_t salt_len, uintptr_t key_buf_va, uintptr_t key_buf_len);
+uintptr_t enclave_generate_key_pair_and_signature(uintptr_t* regs, uintptr_t pri_key_va, uintptr_t pub_key_va, uintptr_t signature_va);
 
 int check_in_enclave_world();
 
