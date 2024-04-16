@@ -6,5 +6,5 @@ docker run -v $(pwd):/home/penglai/penglai-enclave -w /home/penglai/penglai-encl
 cp openeuler-kernel/arch/riscv/boot/Image .
 cd /home/penglai/penglai-enclave/opensbi-1.2
 mkdir -p build-oe/qemu-virt
-CROSS_COMPILE=riscv64-unknown-linux-gnu- make O=build-oe/qemu-virt PLATFORM=generic FW_PAYLOAD=y FW_PAYLOAD_PATH=/home/penglai/penglai-enclave/Image
+CROSS_COMPILE=riscv64-unknown-linux-gnu- make O=build-oe/qemu-virt PLATFORM=generic
 "
