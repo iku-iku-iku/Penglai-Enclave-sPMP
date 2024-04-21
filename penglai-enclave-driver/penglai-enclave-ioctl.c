@@ -353,7 +353,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
 	/* Use untrusted mem as in_out_buf*/
 	if((void*)untrusted_mem_ptr != NULL && untrusted_mem_size > 0){
 		if(untrusted_mem_size > enclave->untrusted_mem->size){
-			printk("KERNEL MODULE: untrusted memory is not big enough \n");
+			printk("KERNEL MODULE: untrusted memory is not big enough (%d > %d) \n", untrusted_mem_size, enclave->untrusted_mem->size);
 			return -EINVAL;
 		}
 		memset((void*)enclave->untrusted_mem->addr, 0, enclave->untrusted_mem->size);

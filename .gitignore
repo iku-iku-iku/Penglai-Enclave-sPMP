@@ -6,7 +6,7 @@ vivado*.log
 .cache.mk
 copy-files/*
 !copy-files/empty
-*.qcow2
+*.qcow2*
 *.hex
 *.swp
 tags
@@ -24,3 +24,8 @@ backup/
 host.txt
 Image
 opensbi-0.9/build-oe/
+*.tar.gz
+gdbscript
+oh-kernel
+*.bak
+*.zip
