@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Begin building penglai enclave"
 if [ ! -d "oh-kernel" ]; then
     wget https://filebin.net/m6q51s538bgd12p1/oh-kernel.tar.gz
     tar -zxvf oh-kernel.tar.gz
@@ -8,3 +9,4 @@ docker run -v $(pwd):/home/penglai/penglai-enclave -w /home/penglai/penglai-encl
 cd /home/penglai/penglai-enclave/penglai-enclave-driver
 CROSS_COMPILE=riscv64-unknown-linux-gnu- make
 "
+echo "Finished"
