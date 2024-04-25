@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Begin building penglai enclave"
 if [ ! -d "oh-kernel" ]; then
-    wget https://filebin.net/m6q51s538bgd12p1/oh-kernel.tar.gz
+    wget -O oh-kernel.tar.gz https://ipads.se.sjtu.edu.cn:1313/f/23d8465436fd47929c7f/?dl=1
     tar -zxvf oh-kernel.tar.gz
 fi
 
