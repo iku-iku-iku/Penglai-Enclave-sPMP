@@ -12,6 +12,7 @@ sudo ip link set $TAP master $BR
 
 root_path=$(pwd)
 board=riscv64_virt
+# better using single core now
 cpus=1
 memory=8096
 image_path=${root_path}/out/${board}/packages/phone/images1
